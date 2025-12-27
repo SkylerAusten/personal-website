@@ -1,0 +1,516 @@
+/* Full-viewport tiled background using the provided spring grass tile images. */
+
+@font-face {
+  font-family: "Stardew";
+  src: url("./assets/fonts/stardew-valley.otf") format("opentype"),
+    url("./assets/fonts/stardew-valley.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --tile-image: url("./images/spring-light-center.png");
+  --palette-yellow: #f3dd6a;
+  --palette-white: #ffffff;
+  --palette-offwhite: #f3f1e7;
+  --tile-size: auto;
+  --max-panel-width: 760px;
+}
+
+/* Keep sign boxes the same width */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-image: var(--tile-image);
+  background-repeat: repeat;
+  background-position: top left;
+  background-size: var(--tile-size);
+  image-rendering: pixelated;
+}
+
+.page {
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+}
+
+.layout {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr minmax(320px, 860px) 1fr;
+}
+
+.side {
+  display: block;
+}
+
+.center {
+  position: relative;
+  z-index: 2;
+  padding: 32px 16px;
+}
+
+.identity-sign {
+  padding: 12px 16px 10px;
+  margin: 0 auto;
+  max-width: var(--max-panel-width);
+  min-width: 0;
+
+  background-color: #a86a34;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0px,
+      rgba(0, 0, 0, 0.06) 6px,
+      rgba(255, 255, 255, 0.03) 6px,
+      rgba(255, 255, 255, 0.03) 12px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 22px,
+      rgba(0, 0, 0, 0.10) 22px,
+      rgba(0, 0, 0, 0.10) 24px
+    );
+
+  border: 4px solid rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+
+.identity-name {
+  margin: 0;
+  font-family: "Stardew", ui-serif, Georgia, "Times New Roman", Times, serif;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-size: 28px;
+  line-height: 1.05;
+  color: var(--palette-yellow);
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.identity-info {
+  margin: 6px 0 0;
+  font-size: var(--identity-meta-font-size, 14px);
+  color: rgba(255, 255, 255, 0.92);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  line-height: 1.1;
+}
+
+.meta-sep {
+  opacity: 0.9;
+}
+
+.meta-location {
+  display: inline-flex;
+  align-items: center;
+}
+
+.sign-slats {
+  margin: 0 auto;
+  max-width: var(--max-panel-width);
+  height: 22px;
+  position: relative;
+}
+
+.sign-slats::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.35) 0 2px,
+      #a86a34 2px calc(100% - 2px),
+      rgba(0, 0, 0, 0.35) calc(100% - 2px) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.35) 0 2px,
+      #a86a34 2px calc(100% - 2px),
+      rgba(0, 0, 0, 0.35) calc(100% - 2px) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.35) 0 2px,
+      #a86a34 2px calc(100% - 2px),
+      rgba(0, 0, 0, 0.35) calc(100% - 2px) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.35) 0 2px,
+      #a86a34 2px calc(100% - 2px),
+      rgba(0, 0, 0, 0.35) calc(100% - 2px) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.10) 0px,
+      rgba(0, 0, 0, 0.10) 10px,
+      rgba(255, 255, 255, 0.04) 10px,
+      rgba(255, 255, 255, 0.04) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.10) 0px,
+      rgba(0, 0, 0, 0.10) 10px,
+      rgba(255, 255, 255, 0.04) 10px,
+      rgba(255, 255, 255, 0.04) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.10) 0px,
+      rgba(0, 0, 0, 0.10) 10px,
+      rgba(255, 255, 255, 0.04) 10px,
+      rgba(255, 255, 255, 0.04) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.10) 0px,
+      rgba(0, 0, 0, 0.10) 10px,
+      rgba(255, 255, 255, 0.04) 10px,
+      rgba(255, 255, 255, 0.04) 20px
+    );
+
+  background-repeat: no-repeat;
+
+  /* Each post uses a base layer + a grain layer. */
+  background-size:
+    14px 100%, 14px 100%, 14px 100%, 14px 100%,
+    14px 100%, 14px 100%, 14px 100%, 14px 100%;
+
+  background-position:
+    calc(18% - 7px) 0,
+    calc(38% - 7px) 0,
+    calc(62% - 7px) 0,
+    calc(82% - 7px) 0,
+    calc(18% - 7px) 0,
+    calc(38% - 7px) 0,
+    calc(62% - 7px) 0,
+    calc(82% - 7px) 0;
+}
+
+.profiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px clamp(10px, 3vw, 18px);
+  justify-items: start;
+  align-items: start;
+  width: 100%;
+  max-width: 100%;
+}
+
+.profile {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  min-width: 0;
+}
+
+.profile:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.6);
+  outline-offset: 2px;
+}
+
+.profile-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.profile-name {
+  font-size: 14px;
+  line-height: 1.2;
+}
+
+.profile:hover .profile-name {
+  text-decoration: underline;
+}
+
+
+.location-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: -3px;
+  margin-right: 6px;
+  display: inline-block;
+  fill: currentColor;
+}
+
+.portfolio-card {
+  margin: 0 auto;
+  max-width: var(--max-panel-width);
+
+  /* Wooden background (CSS-only). */
+  background-color: #a86a34;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0px,
+      rgba(0, 0, 0, 0.06) 6px,
+      rgba(255, 255, 255, 0.03) 6px,
+      rgba(255, 255, 255, 0.03) 12px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 22px,
+      rgba(0, 0, 0, 0.10) 22px,
+      rgba(0, 0, 0, 0.10) 24px
+    );
+
+  border: 4px solid rgba(0, 0, 0, 0.35);
+  padding: 16px;
+}
+
+.linkbar {
+  margin: 0 auto 12px;
+  max-width: var(--max-panel-width);
+  padding: 10px 12px;
+  font-family: "Stardew", ui-serif, Georgia, "Times New Roman", Times, serif;
+  color: var(--palette-yellow);
+  text-transform: uppercase;
+
+  background-color: #a86a34;
+  background-image:
+    repeating-linear-gradient(
+      90deg,
+      rgba(0, 0, 0, 0.06) 0px,
+      rgba(0, 0, 0, 0.06) 6px,
+      rgba(255, 255, 255, 0.03) 6px,
+      rgba(255, 255, 255, 0.03) 12px
+    ),
+    repeating-linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0) 0px,
+      rgba(0, 0, 0, 0) 22px,
+      rgba(0, 0, 0, 0.10) 22px,
+      rgba(0, 0, 0, 0.10) 24px
+    );
+
+  border: 4px solid rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-wrap: nowrap;
+  gap: var(--linkbar-gap, 8px);
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  font-size: var(--linkbar-font-size, 22px);
+}
+
+.linkbar-link {
+  color: inherit;
+  text-decoration: none;
+  padding: 2px var(--linkbar-link-pad-x, 4px);
+  border: 1px solid transparent;
+  flex: 0 0 auto;
+}
+
+.linkbar-link:hover {
+  text-decoration: underline;
+}
+
+.linkbar-link:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.6);
+  outline-offset: 2px;
+}
+
+.linkbar-sep {
+  opacity: 0.75;
+  flex: 0 0 auto;
+}
+
+.portfolio-section {
+  margin: 0 0 18px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.88);
+}
+
+.portfolio-section-title {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+
+
+.project-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+}
+
+.project {
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px solid rgba(0, 0, 0, 0.2);
+
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.project-content {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.project-screenshot {
+  align-self: center;
+  flex: 0 0 auto;
+  width: 368px;
+  max-width: 100%;
+  aspect-ratio: 16 / 10;
+  height: auto;
+  object-fit: cover;
+  display: block;
+  image-rendering: pixelated;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.project-title {
+  margin: 0 0 6px;
+  font-size: 18px;
+}
+
+.project-text {
+  margin: 0 0 6px;
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.project-stack {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.85;
+}
+
+.portfolio-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.skill-with-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+}
+
+.skill-with-icon > i {
+  font-size: 1.05em;
+  line-height: 1;
+}
+
+.link {
+  color: inherit;
+}
+
+.footer-controls {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: clamp(10px, 4vw, 28px);
+  flex-wrap: nowrap;
+}
+
+.webrings {
+  margin-top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: clamp(12px, 4.5vw, 28px);
+}
+
+.webring {
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+}
+
+.webring-label {
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.9;
+}
+
+.webring-controls {
+  display: inline-flex;
+  gap: clamp(4px, 1.5vw, 6px);
+}
+
+.season-buttons {
+  display: inline-flex;
+  gap: clamp(4px, 1.5vw, 6px);
+  flex-wrap: nowrap;
+}
+
+.background-settings {
+  /* Let the label wrap on narrow screens so the footer fits. */
+  max-width: min(220px, 48vw);
+}
+
+.webring-arrow,
+.season-btn {
+  width: clamp(22px, 7vw, 28px);
+  height: clamp(20px, 6.2vw, 24px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px solid rgba(0, 0, 0, 0.25);
+  font-weight: 700;
+}
+
+.season-btn {
+  padding: 0;
+  cursor: pointer;
+  font-size: clamp(12px, 3.8vw, 14px);
+  line-height: 1;
+}
+
+.webring-arrow:hover,
+.season-btn:hover {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.webring-arrow:focus-visible,
+.season-btn:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.6);
+  outline-offset: 2px;
+}
+
+/* Screen-reader-only utility */
+.screenreader-only {
+    position: absolute !important; /* Outside the DOM flow */
+    height: 1px; width: 1px; /* Nearly collapsed */
+    overflow: hidden;
+    clip: rect(1px 1px 1px 1px); /* IE 7+ only support clip without commas */
+    clip: rect(1px, 1px, 1px, 1px); /* All other browsers */
+}
